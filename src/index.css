@@ -21,8 +21,19 @@ header a{
   font-size: 1.3rem;
 }
 
-main{
+.main{
   height: calc(100vh - 100px);
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px
+}
+
+.main .products{
+  flex: 3 60rem
+}
+
+.main .sidebar{
+  flex: 1 20rem;
 }
 
 footer{
