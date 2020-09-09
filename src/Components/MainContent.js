@@ -11,16 +11,27 @@ function MainContent() {
 
     useEffect(() => {
         setProducts(data.products)
-    })    
+    } , [])    
 
-    const sortProducts = (sort) => {
-        // impl
-        console.log('sort changed')
+    const sortProducts = (event) => {
+        setSort(event.target.value)
+        const pro = products.slice().sort((a,b) => 
+            sort === 'lowest' ? a.price > b.price ? 1 : -1 : sort === 'highest' ? a.price < b.price ? 1 : -1 : a.id > b.id ? 1 : -1
+        )
+
+        console.log(pro)
+        setProducts(pro)
     }
 
-    const filterProducts = (size) => {
-        // impl
-        console.log('Size Changed')
+    const filterProducts = (event) => {
+        if(event.target.value === ""){
+            setSize(event.target.value)
+            setProducts(data.products)
+        }else{
+            setSize(event.target.value)
+            const res = data.products.filter( product => product.availableSizes.indexOf(event.target.value) > 0)
+            setProducts(res)
+        }
     }
     return (
         <div className='products-list'>

@@ -73,6 +73,13 @@ header a{
   border: 1px solid #808080
 }
 
+.no-results{
+  background: #f5737366;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  padding: 10px
+}
+
 .filter{
   display: flex;
   justify-content: space-between;
