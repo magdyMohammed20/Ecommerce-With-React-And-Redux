@@ -1,14 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 *{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: helvetica;
+  font-family: 'Montserrat' , helvetica;
 }
 
 a{
   text-decoration: none;
 }
 
+ul{
+  list-style: none;
+}
 header,footer{
   background-color: #203040;
   height: 50px;
@@ -21,8 +25,49 @@ header a{
   font-size: 1.3rem;
 }
 
-main{
-  height: calc(100vh - 100px);
+.main{
+  display: grid;
+  grid-template-columns: 75% 25%;
+  padding: 15px
+}
+
+.main .products{
+  display: grid;
+  grid-template-columns: repeat(3 , 32.333%);
+  grid-column-gap: 1.3%;
+  grid-row-gap: 20px;
+}
+
+.product-data{
+  height: 100%;
+}
+
+.product-data img{
+  max-height: 37rem;
+  max-width: 100%;
+}
+
+.product-data p{
+  margin: 5px 0 18px
+}
+
+.product-price{
+  display: flex;
+  align-items: center;
+}
+
+.price{
+  width: 50%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.product-price .primary{
+  background-color: #f0c040;
+  width: 50%;
+  padding: 10px 0;
+  cursor: pointer;
+  border: 1px solid #808080
 }
 
 footer{
