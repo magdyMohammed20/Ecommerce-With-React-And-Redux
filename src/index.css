@@ -25,10 +25,13 @@ header a{
   font-size: 1.3rem;
 }
 
+.products-list{
+  padding: 15px
+}
+
 .main{
   display: grid;
   grid-template-columns: 75% 25%;
-  padding: 15px
 }
 
 .main .products{
@@ -68,6 +71,27 @@ header a{
   padding: 10px 0;
   cursor: pointer;
   border: 1px solid #808080
+}
+
+.no-results{
+  background: #f5737366;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  padding: 10px
+}
+
+.filter{
+  display: flex;
+  justify-content: space-between;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  padding-right: 10rem;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e8e6e7
+}
+
+.filter select{
+  margin-left: 5px;
 }
 
 footer{
