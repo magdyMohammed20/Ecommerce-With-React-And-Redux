@@ -1,6 +1,7 @@
 import React from 'react'
 import data from '../data.json'
 import {useState,useEffect} from 'react'
+import Products from './Products'
 
 function MainContent() {
     const [products , setProducts] = useState([])
@@ -14,9 +15,9 @@ function MainContent() {
     console.log(data)
     return (
         <div className='main'>
-            <div className='products'>
-                Product List
-            </div>
+            <ul className='products'>
+                <Products products={products}/>
+            </ul>
             <div className='sidebar'>
                 Sidebar
             </div>
