@@ -3,11 +3,13 @@ import data from '../data.json'
 import {useState,useEffect} from 'react'
 import Products from './Products'
 import Filter from './Filter'
+import Cart from './Cart'
 
 function MainContent() {
     const [products , setProducts] = useState([])
     const [size , setSize] = useState("")
     const [sort , setSort] = useState("")
+    const [cartItems , setCartItems] = useState([])
 
     useEffect(() => {
         setProducts(data.products)
@@ -33,15 +35,41 @@ function MainContent() {
             setProducts(res)
         }
     }
+
+    const allCart = cartItems.slice()
+
+    const addToCart = product => {
+        let alreadyInCart = false
+
+        allCart.forEach(item => {
+            if(item.id === product.id){
+                item.count++
+                alreadyInCart = true
+            }
+        })
+
+        if(!alreadyInCart){
+            allCart.push({...product , count: 1})
+        }
+
+        setCartItems(allCart)
+    }
+
+   
+    const removeCartItem = (item) => {
+        const allCart2 = cartItems.slice()
+        setCartItems(allCart2.filter(cartItem => cartItem.id !== item.id))
+    }
     return (
         <div className='products-list'>
             <div className='main'>
                 <ul className='products'>
                     <Filter count={products.length} size={size} sort={sort} sortProducts={sortProducts} filterProducts={filterProducts}/>
-                    <Products products={products}/>
+                    <Products products={products} addToCart={addToCart}/>
                 </ul>
                 <div className='sidebar'>
-                    Sidebar
+                    <Cart cartItems={cartItems} removeCartItem={removeCartItem}/>
+
                 </div>
             </div>
         </div>
