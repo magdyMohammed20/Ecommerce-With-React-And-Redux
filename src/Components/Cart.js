@@ -44,7 +44,7 @@ function Cart({cartItems , removeCartItem , createOrder}) {
                                     <div className='product-image'>
                                         <img src={item.image} alt={item.title}/>
                                     </div>
-                                    <div className='product-details'>
+                                    <div className='product-details in-cart'>
                                         <div>{item.title}</div>
                                         <div className='product-details2'>
                                             <p>${item.price} x {item.count}</p>

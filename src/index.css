@@ -8,6 +8,7 @@
 
 a{
   text-decoration: none;
+  color: #203040
 }
 
 ul{
@@ -68,10 +69,13 @@ header a{
 
 .primary{
   background-color: #f0c040;
-  width: 50%;
   padding: 10px 0;
   cursor: pointer;
   border: 1px solid #808080
+}
+
+.primary:not(.size){
+  width: 50%;
 }
 
 .no-results{
@@ -176,6 +180,57 @@ header a{
 .checkout button{
   margin: 1rem .5rem 0;
 }
+
+.product-details3{
+  display: flex;
+}
+
+.product-details3 img{
+  max-height: 80vh;
+  max-width: 40rem
+}
+
+.product-details3 .product-data{
+  padding: 0 25px
+}
+
+.close-modal{
+  position: absolute;
+  top: 1rem;
+  z-index: 999;
+  right: 1rem;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.product-details3 strong{
+  margin-top: 1rem;
+  display: block;
+}
+
+.product-details3 .product-data .product-desc{
+  margin: 10px 0
+}
+
+.product-details3 .sizes{
+  margin-top: 1rem
+}
+
+.product-details3 .size{
+  padding: 10px;
+  margin: 0 3px;
+  display: inline-block;
+}
+
+.product-details3 .panda{
+  display: flex;
+  align-items: center;
+}
+
+.panda p{
+  margin: 0 .8rem 0 0
+}
+
 footer{
   color: #FFF;
   text-align: center;
