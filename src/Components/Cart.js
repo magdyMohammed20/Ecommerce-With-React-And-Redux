@@ -1,6 +1,32 @@
-import React from 'react'
+import React , {useState} from 'react'
 
-function Cart({cartItems , removeCartItem}) {
+function Cart({cartItems , removeCartItem , createOrder}) {
+    const [showCheckout , setShowCheckout] = useState(false)
+    const [name , setName] = useState('')
+    const [email , setEmail] = useState('')
+    const [address , setAddress] = useState('')
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        
+        const order = {
+            name,
+            email,
+            address
+        }
+
+        createOrder(order)
+    }
+
+    const handleChange = e => {
+        if(e.target.name === 'name'){
+            setName(e.target.value)
+        }else if(e.target.name === 'email'){
+            setEmail(e.target.value)
+        }else{
+            setAddress(e.target.value)
+        }
+    }
     return (
         <div>
             <div className='cart-quantity'>
@@ -37,9 +63,48 @@ function Cart({cartItems , removeCartItem}) {
                             cartItems.reduce((a,b) => Math.ceil(a + b.price * b.count) , 0)
                         }
                     </div>
-                    <button className='primary'>Proceed</button>
+                    <button className='primary' onClick={() => setShowCheckout(true)}>Proceed</button>
                 </div>
             </div>
+            }
+
+            {
+                showCheckout && (
+                    <div className='checkout'>
+                        <form onSubmit={handleSubmit}>
+                            <ul>
+                                <li>
+                                    <label>Name</label>
+                                    <input 
+                                        type='text'
+                                        name='name'
+                                        required
+                                        onChange={handleChange}
+                                    />
+                                </li>
+                                <li>
+                                    <label>Email</label>
+                                    <input 
+                                        type='email'
+                                        name='email'
+                                        required
+                                        onChange={handleChange}
+                                    />
+                                </li>
+                                <li>
+                                    <label>Address</label>
+                                    <input 
+                                        type='text'
+                                        name='address'
+                                        required
+                                        onChange={handleChange}
+                                    />
+                                </li>
+                            </ul>
+                            <button type='submit' className='primary'>Submit</button>
+                        </form>
+                    </div>
+                )
             }
         </div>
     )
