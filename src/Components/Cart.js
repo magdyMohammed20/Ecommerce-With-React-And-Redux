@@ -1,5 +1,5 @@
 import React , {useState} from 'react'
-
+import Fade from 'react-reveal/Fade'
 function Cart({cartItems , removeCartItem , createOrder}) {
     const [showCheckout , setShowCheckout] = useState(false)
     const [name , setName] = useState('')
@@ -36,25 +36,27 @@ function Cart({cartItems , removeCartItem , createOrder}) {
             </div>
             {
                 cartItems.length > 0 && <div className='cart-container'>
-                <ul>
-                    {
-                        cartItems.map(item => {
-                            return <li key={item.id}>
-                                <div className='product-image'>
-                                    <img src={item.image} alt={item.title}/>
-                                </div>
-                                <div className='product-details'>
-                                    <div>{item.title}</div>
-                                    <div className='product-details2'>
-                                        <p>${item.price} x {item.count}</p>
-                                        {/*<p>Total Price : ${item.count * item.price}</p>*/}
-                                        <button onClick={() => removeCartItem(item)}>Remove</button>
+                <Fade left cascade>
+                    <ul className='cart-list'>
+                        {
+                            cartItems.map(item => {
+                                return <li key={item.id}>
+                                    <div className='product-image'>
+                                        <img src={item.image} alt={item.title}/>
                                     </div>
-                                </div>
-                            </li>
-                        })
-                    }
-                </ul>
+                                    <div className='product-details'>
+                                        <div>{item.title}</div>
+                                        <div className='product-details2'>
+                                            <p>${item.price} x {item.count}</p>
+                                            {/*<p>Total Price : ${item.count * item.price}</p>*/}
+                                            <button onClick={() => removeCartItem(item)}>Remove</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            })
+                        }
+                    </ul>
+                </Fade>
                 <div className='total-cart-price'>
                     <div>
                         Total : 
@@ -72,6 +74,7 @@ function Cart({cartItems , removeCartItem , createOrder}) {
                 showCheckout && (
                     <div className='checkout'>
                         <form onSubmit={handleSubmit}>
+                            <Fade right cascade>
                             <ul>
                                 <li>
                                     <label>Name</label>
@@ -100,8 +103,12 @@ function Cart({cartItems , removeCartItem , createOrder}) {
                                         onChange={handleChange}
                                     />
                                 </li>
+                                <li>
+                                    <button type='submit' className='primary'>Submit</button>
+                                </li>
                             </ul>
-                            <button type='submit' className='primary'>Submit</button>
+                            
+                            </Fade>
                         </form>
                     </div>
                 )

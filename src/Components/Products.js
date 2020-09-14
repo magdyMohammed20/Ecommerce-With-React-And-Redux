@@ -1,8 +1,9 @@
 import React from 'react'
-
+import Fade from 'react-reveal/Fade'
 function Products({products , addToCart}) {
     return (
-        <>
+        <Fade bottom cascade>
+            <div>
             {
                 products.length > 0 ? (
                     products.map(product => {
@@ -25,7 +26,8 @@ function Products({products , addToCart}) {
                     <div className='no-results'>No Results Founded</div>
                 )
             }
-        </>
+            </div>
+        </Fade>
     )
 }
 
