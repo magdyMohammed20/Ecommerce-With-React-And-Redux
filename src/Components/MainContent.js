@@ -70,6 +70,7 @@ function MainContent() {
             <div className='main'>
                 <ul className='products'>
                     <Filter count={products.length} size={size} sort={sort} sortProducts={sortProducts} filterProducts={filterProducts}/>
+                    
                     <Products products={products} addToCart={addToCart}/>
                 </ul>
                 <div className='sidebar'>
