@@ -9,10 +9,11 @@ function MainContent() {
     const [products , setProducts] = useState([])
     const [size , setSize] = useState("")
     const [sort , setSort] = useState("")
-    const [cartItems , setCartItems] = useState([])
+    const [cartItems , setCartItems] = useState(localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [])
 
     useEffect(() => {
         setProducts(data.products)
+        
     } , [])    
 
     const sortProducts = (event) => {
@@ -20,8 +21,6 @@ function MainContent() {
         const pro = products.slice().sort((a,b) => 
             sort === 'lowest' ? a.price > b.price ? 1 : -1 : sort === 'highest' ? a.price < b.price ? 1 : -1 : a.id > b.id ? 1 : -1
         )
-
-        console.log(pro)
         setProducts(pro)
     }
 
@@ -53,12 +52,18 @@ function MainContent() {
         }
 
         setCartItems(allCart)
+        localStorage.setItem("cartItems" , JSON.stringify(allCart))
     }
 
-   
+
     const removeCartItem = (item) => {
         const allCart2 = cartItems.slice()
         setCartItems(allCart2.filter(cartItem => cartItem.id !== item.id))
+        localStorage.setItem("cartItems" , JSON.stringify(allCart2.filter(cartItem => cartItem.id !== item.id)))
+    }
+
+    const createOrder = (order) => {
+        alert(`Sure To Save ${order.name} Order`)
     }
     return (
         <div className='products-list'>
@@ -68,7 +73,7 @@ function MainContent() {
                     <Products products={products} addToCart={addToCart}/>
                 </ul>
                 <div className='sidebar'>
-                    <Cart cartItems={cartItems} removeCartItem={removeCartItem}/>
+                    <Cart cartItems={cartItems} removeCartItem={removeCartItem} createOrder={createOrder}/>
 
                 </div>
             </div>

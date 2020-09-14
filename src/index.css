@@ -149,6 +149,28 @@ header a{
   font-size: 1.2rem;
 }
 
+.checkout ul{
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout ul li{
+  padding: .5rem;
+  display: block;
+}
+
+.checkout label{
+  display: block;
+}
+
+.checkout input{
+  padding: .4rem;
+  width: 100%
+}
+
+.checkout button{
+  margin: 1rem .5rem 0;
+}
 footer{
   color: #FFF;
   text-align: center;
