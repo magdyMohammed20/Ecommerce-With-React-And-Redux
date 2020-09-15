@@ -49,7 +49,14 @@ function Cart({cartItems , removeCartItem , createOrder}) {
                                         <div className='product-details2'>
                                             <p>${item.price} x {item.count}</p>
                                             {/*<p>Total Price : ${item.count * item.price}</p>*/}
-                                            <button onClick={() => removeCartItem(item)}>Remove</button>
+                                            <button onClick={() => {
+                                                
+                                                removeCartItem(item)
+                                                if(JSON.parse(localStorage.getItem('cartItems')).length === 0){
+                                                    console.log(false)
+                                                    setShowCheckout(false)
+                                                }
+                                            }}>Remove</button>
                                         </div>
                                     </div>
                                 </li>
