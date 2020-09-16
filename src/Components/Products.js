@@ -42,7 +42,7 @@ function Products({products , addToCart}) {
                                                         Available Sizes : 
                                                         {
                                                             currentProduct.availableSizes.map(x => {
-                                                                return <span>
+                                                                return <span key={x}>
                                                                     <button className='primary size'>{x}</button>
                                                                 </span>
                                                             })
