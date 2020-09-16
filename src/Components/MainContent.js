@@ -1,18 +1,20 @@
 import React from 'react'
-import data from '../data.json'
 import {useState,useEffect} from 'react'
 import Products from './Products'
 import Filter from './Filter'
 import Cart from './Cart'
+import {connect} from 'react-redux'
+import {fetchProducts} from '../Redux/ProductsActions'
 
-function MainContent() {
+function MainContent(props) {
     const [products , setProducts] = useState([])
     const [size , setSize] = useState("")
     const [sort , setSort] = useState("")
     const [cartItems , setCartItems] = useState(localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [])
 
     useEffect(() => {
-        setProducts(data.products)
+        props.fetchProducts()
+        setProducts(props.products)
         
     } , [])    
 
@@ -27,10 +29,10 @@ function MainContent() {
     const filterProducts = (event) => {
         if(event.target.value === ""){
             setSize(event.target.value)
-            setProducts(data.products)
+            setProducts(products)
         }else{
             setSize(event.target.value)
-            const res = data.products.filter( product => product.availableSizes.indexOf(event.target.value) > 0)
+            const res = products.filter( product => product.availableSizes.indexOf(event.target.value) > 0)
             setProducts(res)
         }
     }
@@ -69,9 +71,13 @@ function MainContent() {
         <div className='products-list'>
             <div className='main'>
                 <ul className='products'>
-                    <Filter count={products.length} size={size} sort={sort} sortProducts={sortProducts} filterProducts={filterProducts}/>
+                    <Filter count={!props.products ? [] : props.products.length } size={size} sort={sort} sortProducts={sortProducts} filterProducts={filterProducts}/>
                     
-                    <Products products={products} addToCart={addToCart}/>
+                    {
+                        !props.products ? <div>loading</div> : (
+                            <Products products={props.products} addToCart={addToCart}/>
+                        )
+                    }
                 </ul>
                 <div className='sidebar'>
                     <Cart cartItems={cartItems} removeCartItem={removeCartItem} createOrder={createOrder}/>
@@ -82,4 +88,4 @@ function MainContent() {
     )
 }
 
-export default MainContent
+export default connect((state) => ({products : state.products.items}) , {fetchProducts})(MainContent)
