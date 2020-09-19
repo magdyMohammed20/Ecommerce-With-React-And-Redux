@@ -88,8 +88,13 @@ function MainContent(props) {
         <div className='products-list'>
             <div className='main'>
                 <ul className='products'>
-                    <Filter count={!props.products ? 0 : props.products.length } size={size} sort={sort} sortProducts={sortProducts} filterProducts={filterProducts}/>
-                    
+                    {
+                        products === undefined ? (
+                            <Filter count={props.products ? props.products.length : 0} size={size} sort={sort} sortProducts={sortProducts} filterProducts={filterProducts}/>
+                        ):(
+                            <Filter count={products.length } size={size} sort={sort} sortProducts={sortProducts} filterProducts={filterProducts}/>
+                        )
+                    }
                     {
                         !props.products ? <div>loading ...</div> : (
                             <Products products={products ? products : props.products} addToCart={addToCart}/>
