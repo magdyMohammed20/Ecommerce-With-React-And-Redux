@@ -5,6 +5,7 @@ import Filter from './Filter'
 import Cart from './Cart'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../Redux/ProductsActions'
+import {addToCart} from '../Redux/CartActions'
 
 function MainContent(props) {
     const [products , setProducts] = useState([])
@@ -57,6 +58,7 @@ function MainContent(props) {
 */
     const allCart = cartItems.slice()
 
+    /*
     const addToCart = product => {
         let alreadyInCart = false
 
@@ -85,7 +87,7 @@ function MainContent(props) {
     const createOrder = (order) => {
         alert(`Sure To Save ${order.name} Order`)
     }
-
+*/
     return (
         <div className='products-list'>
             <div className='main'>
@@ -94,12 +96,12 @@ function MainContent(props) {
                         
                     {
                         !props.products ? <div>loading ...</div> : (
-                            <Products products={props.filteredProducts ? props.filteredProducts : props.products} addToCart={addToCart}/>
+                            <Products products={props.filteredProducts ? props.filteredProducts : props.products} addToCart={props.addToCart}/>
                         )
                     }
                 </ul>
                 <div className='sidebar'>
-                    <Cart cartItems={cartItems} removeCartItem={removeCartItem} createOrder={createOrder} filteredProducts={props.filteredProducts}/>
+                    <Cart/>
                 </div>
             </div>
         </div>
@@ -109,4 +111,4 @@ function MainContent(props) {
 export default connect((state) => ({
     filteredProducts : state.products.filteredItems,
     products: state.products.items
-}) , {fetchProducts})(MainContent)
+}) , {fetchProducts , addToCart})(MainContent)
