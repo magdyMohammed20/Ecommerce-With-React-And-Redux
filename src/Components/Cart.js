@@ -53,7 +53,6 @@ function Cart({cartItems , removeCartItem , createOrder}) {
                                                 
                                                 removeCartItem(item)
                                                 if(JSON.parse(localStorage.getItem('cartItems')).length === 0){
-                                                    console.log(false)
                                                     setShowCheckout(false)
                                                 }
                                             }}>Remove</button>
