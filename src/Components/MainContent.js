@@ -18,6 +18,7 @@ function MainContent(props) {
         
     },[])    
 
+    /*
     const sortProducts = (event) => {
         setSort(event.target.value)
         
@@ -53,7 +54,7 @@ function MainContent(props) {
             }
         }
     }
-
+*/
     const allCart = cartItems.slice()
 
     const addToCart = product => {
@@ -84,30 +85,28 @@ function MainContent(props) {
     const createOrder = (order) => {
         alert(`Sure To Save ${order.name} Order`)
     }
+
     return (
         <div className='products-list'>
             <div className='main'>
                 <ul className='products'>
-                    {
-                        products === undefined ? (
-                            <Filter count={props.products ? props.products.length : 0} size={size} sort={sort} sortProducts={sortProducts} filterProducts={filterProducts}/>
-                        ):(
-                            <Filter count={products.length } size={size} sort={sort} sortProducts={sortProducts} filterProducts={filterProducts}/>
-                        )
-                    }
+                    <Filter/>
+                        
                     {
                         !props.products ? <div>loading ...</div> : (
-                            <Products products={products ? products : props.products} addToCart={addToCart}/>
+                            <Products products={props.filteredProducts ? props.filteredProducts : props.products} addToCart={addToCart}/>
                         )
                     }
                 </ul>
                 <div className='sidebar'>
-                    <Cart cartItems={cartItems} removeCartItem={removeCartItem} createOrder={createOrder}/>
-
+                    <Cart cartItems={cartItems} removeCartItem={removeCartItem} createOrder={createOrder} filteredProducts={props.filteredProducts}/>
                 </div>
             </div>
         </div>
     )
 }
 
-export default connect((state) => ({products : state.products.items}) , {fetchProducts})(MainContent)
+export default connect((state) => ({
+    filteredProducts : state.products.filteredItems,
+    products: state.products.items
+}) , {fetchProducts})(MainContent)
