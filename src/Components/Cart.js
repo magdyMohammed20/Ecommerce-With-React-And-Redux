@@ -1,11 +1,15 @@
 import React , {useState} from 'react'
 import Fade from 'react-reveal/Fade'
-function Cart({cartItems , removeCartItem , createOrder}) {
+import {connect} from 'react-redux'
+import {removeCartItem} from '../Redux/CartActions'
+
+function Cart(props) {
+    const {cartItems , removeCartItem} = props
     const [showCheckout , setShowCheckout] = useState(false)
     const [name , setName] = useState('')
     const [email , setEmail] = useState('')
     const [address , setAddress] = useState('')
-
+    
     const handleSubmit = e => {
         e.preventDefault()
         
@@ -15,7 +19,7 @@ function Cart({cartItems , removeCartItem , createOrder}) {
             address
         }
 
-        createOrder(order)
+        //createOrder(order)
     }
 
     const handleChange = e => {
@@ -123,4 +127,9 @@ function Cart({cartItems , removeCartItem , createOrder}) {
     )
 }
 
-export default Cart
+export default connect((state) => ({
+    cartItems: state.cart.cartItems,
+
+}) , {
+    removeCartItem
+})(Cart)
