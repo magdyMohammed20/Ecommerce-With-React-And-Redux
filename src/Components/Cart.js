@@ -2,9 +2,13 @@ import React , {useState} from 'react'
 import Fade from 'react-reveal/Fade'
 import {connect} from 'react-redux'
 import {removeCartItem} from '../Redux/CartActions'
+import {createOrder , clearOrder} from '../Redux/OrderActions'
+import Modal from 'react-modal'
+import Zoom from 'react-reveal/Zoom'
 
 function Cart(props) {
-    const {cartItems , removeCartItem} = props
+    console.log(props)
+    const {cartItems , removeCartItem , order} = props
     const [showCheckout , setShowCheckout] = useState(false)
     const [name , setName] = useState('')
     const [email , setEmail] = useState('')
@@ -16,10 +20,12 @@ function Cart(props) {
         const order = {
             name,
             email,
-            address
+            address,
+            cartItems,
+            total: cartItems.reduce((a , c) => a + c.price * c.count, 0)
         }
 
-        //createOrder(order)
+        props.createOrder(order)
     }
 
     const handleChange = e => {
@@ -31,6 +37,10 @@ function Cart(props) {
             setAddress(e.target.value)
         }
     }
+
+    const closeModal = () => {
+        props.clearOrder()
+    }
     return (
         <div>
             <div className='cart-quantity'>
@@ -38,6 +48,45 @@ function Cart(props) {
                     cartItems.length > 0 ? <div> You Have {cartItems.length} Items In Cart</div> : <div> No Items In Cart </div>
                 }
             </div>
+            {
+                props.order && <Modal isOpen={true} onRequestClose={closeModal}>
+                    <Zoom>
+                        <div className='order-container'>
+                            <button className='close-modal' onClick={closeModal}>x</button>
+                            <div className='order-details'>
+                                <h3>Order Has Been Placed</h3>
+                                <h2>{order.id}</h2>
+                                <ul>
+                                    <li>
+                                        <div>Name:</div>
+                                        <div>{order.name}</div>
+                                    </li>
+                                    <li>
+                                        <div>Email:</div>
+                                        <div>{order.email}</div>
+                                    </li>
+                                    <li>
+                                        <div>Address:</div>
+                                        <div>{order.address}</div>
+                                    </li>
+                                    <li>
+                                        <div>Date:</div>
+                                        <div>{order.createdAt}</div>
+                                    </li>
+                                    <li>
+                                        <div>Total:</div>
+                                        <div>${Math.ceil(order.total)}</div>
+                                    </li>
+                                    <li>
+                                        <div>CartItems:</div>
+                                        <div>{order.cartItems.map(x => <p key={x.id}>{x.count} x {x.title}</p>)}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </Zoom>
+                </Modal>
+            }
             {
                 cartItems.length > 0 && <div className='cart-container'>
                 <Fade left cascade>
@@ -129,7 +178,9 @@ function Cart(props) {
 
 export default connect((state) => ({
     cartItems: state.cart.cartItems,
-
+    order: state.order.order
 }) , {
-    removeCartItem
+    removeCartItem,
+    createOrder,
+    clearOrder
 })(Cart)

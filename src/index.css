@@ -238,6 +238,41 @@ header a{
   margin: 0 .8rem 0 0
 }
 
+.order-container{
+  width: 50%;
+  margin: auto;
+  padding: 30px;
+}
+
+.order-container h3
+{
+  color: green
+}
+
+.order-container h2,
+.order-container h3{
+  text-align: center;
+  margin: 7px 0;
+}
+
+.order-container ul
+{
+  margin-top: 50px
+}
+
+.order-container li{
+  display: flex;
+  margin: 10px 0;
+}
+
+.order-container li div:first-child{
+  width: 30%
+}
+
+.order-container li div:last-child{
+  width: 70%
+}
+
 footer{
   color: #FFF;
   text-align: center;
